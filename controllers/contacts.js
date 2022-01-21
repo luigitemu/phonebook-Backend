@@ -5,20 +5,12 @@ const Contact = require('../models/contact');
 
 const getContacts = async (req = request , res = response)=>{
 
-    const {limit = 5 , from = 0 } = req.query;
 
-
-    const [total , contacts] = await Promise.all([
-        Contact.countDocuments(),
-        Contact.find()
-                .skip(Number(from))
-                .limit(Number(limit) )
-
-    ])
+   
+    const contacts = await Contact.find();
 
 
     res.status(200).json({
-        total,
         contacts
     });
 
